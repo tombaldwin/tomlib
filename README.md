@@ -6,31 +6,11 @@ A common library for multiple projects, hosted on GitHub at [tombaldwin/tomlib](
 
 This project contains common library code used across various projects by Tom Baldwin.
 
-## Usage
+## Usage (GitHub Packages)
 
-### Option 1: JitPack (Easiest)
+This library is published to GitHub Packages.
 
-JitPack allows you to use any GitHub repository as a Maven repository.
-
-1. Add the JitPack repository to your `build.gradle.kts`:
-   ```kotlin
-   repositories {
-       maven { url = uri("https://jitpack.io") }
-   }
-   ```
-2. Add the dependency:
-   ```kotlin
-   dependencies {
-       implementation("com.github.tombaldwin:tomlib:v1.0.0")
-   }
-   ```
-   *Note: Use `com.github.user:repo:tag` format with JitPack.*
-
-### Option 2: GitHub Packages
-
-You can also publish to GitHub Packages for a more formal Maven repository.
-
-1. Add the following to your `build.gradle.kts`:
+1. Add the GitHub Packages repository to your `build.gradle.kts`:
    ```kotlin
    repositories {
        maven {
@@ -52,36 +32,29 @@ You can also publish to GitHub Packages for a more formal Maven repository.
 
 ## Publishing
 
-To publish to GitHub Packages, you can use the `maven-publish` plugin already configured in this project. 
+To publish to GitHub Packages, use the `maven-publish` plugin already configured in this project.
+
+### Automatic Publishing (GitHub Actions)
+The library is automatically published to GitHub Packages when a new release is created via GitHub.
+- See `.github/workflows/publish.yml` for the configuration.
 
 ### Manual Publishing
 Run:
 ```bash
 ./gradlew publish
 ```
-You will need to provide `GITHUB_ACTOR` and `GITHUB_TOKEN` environment variables.
+You will need to provide `GITHUB_ACTOR` and `GITHUB_TOKEN` environment variables (or set them in `gradle.properties` as `gpr.user` and `gpr.key`).
 
-### Automatic Publishing (GitHub Actions)
-Create a file at `.github/workflows/publish.yml`:
-```yaml
-name: Publish Package
-on:
-  release:
-    types: [created]
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Publish with Gradle
-        run: ./gradlew publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+## Alternatives
+
+### JitPack
+If you prefer JitPack, you can still use it by adding:
+```kotlin
+repositories {
+    maven { url = uri("https://jitpack.io") }
+}
+
+dependencies {
+    implementation("com.github.tombaldwin:tomlib:v1.0.0")
+}
 ```
