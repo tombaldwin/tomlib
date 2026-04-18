@@ -29,6 +29,9 @@ public final class UserInference {
     /// @return the inferred name, or null if not found
     ///
     public static String getInferredName() {
+        if (!TomlibConfig.isInferenceEnabled()) {
+            return null;
+        }
         // 1. Environment Variables
         String[] envVars = {"USER_NAME", "FULL_NAME", "NAME"};
         for (String var : envVars) {
@@ -104,6 +107,9 @@ public final class UserInference {
     /// @return the inferred MonthDay, or null if not found
     ///
     public static MonthDay getInferredBirthday() {
+        if (!TomlibConfig.isInferenceEnabled()) {
+            return null;
+        }
         // 1. Environment Variable
         String envBirthday = System.getenv("USER_BIRTHDAY");
         if (envBirthday != null && envBirthday.matches("\\d{2}-\\d{2}")) {
@@ -155,6 +161,9 @@ public final class UserInference {
     /// @return the inferred age, or -1 if the birth year cannot be determined
     ///
     public static int getInferredAge() {
+        if (!TomlibConfig.isInferenceEnabled()) {
+            return -1;
+        }
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("mac")) {
             try {

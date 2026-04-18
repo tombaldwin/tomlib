@@ -33,6 +33,15 @@ This library is published to JitPack.
    ```
    *Replace `v1.0.0` with the latest release tag.*
 
+## Configuration
+
+The library includes features that infer user information (name and birthday) from the local environment and fetch data from external APIs (e.g., US Treasury). These can be controlled via system properties or environment variables:
+
+- **User Inference:** Enabled by default. Used for the `BirthdayTheme`.
+  - Disable: `-Dtomlib.inference.enabled=false` or `TOMLIB_INFERENCE_ENABLED=false`
+- **Network Access:** Enabled by default. Used for the `FourthOfJulyTheme` glitch mode.
+  - Disable: `-Dtomlib.network.enabled=false` or `TOMLIB_NETWORK_ENABLED=false`
+
 ## Alternatives
 
 ### GitHub Packages
