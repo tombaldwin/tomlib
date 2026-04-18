@@ -18,6 +18,12 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
 dependencies {
     implementation(libs.bundles.log4j)
     testImplementation(platform(libs.junit.bom))
