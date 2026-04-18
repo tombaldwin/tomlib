@@ -25,7 +25,10 @@ public class DocumentationGenerator {
     private static void generateFontsDocs() throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append("# Fonts\n\n");
-        sb.append("This document contains colourful examples of all fonts available in the TomLib library.\n\n");
+        sb.append("<p align=\"right\">\n");
+        sb.append("  <img src=\"docs/images/logo.svg\" width=\"100\" alt=\"tomlib Logo\">\n");
+        sb.append("</p>\n\n");
+        sb.append("This document contains colourful examples of all fonts available in the tomlib library.\n\n");
 
         List<AsciiFont> fonts = FontRegistry.getFonts().values().stream()
                 .sorted(Comparator.comparing(f -> f.getClass().getSimpleName()))
@@ -115,11 +118,14 @@ public class DocumentationGenerator {
     private static void generateThemesDocs() throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append("# Themes\n\n");
-        sb.append("This document contains colourful examples of all themes available in the TomLib library.\n\n");
+        sb.append("<p align=\"right\">\n");
+        sb.append("  <img src=\"docs/images/logo.svg\" width=\"100\" alt=\"tomlib Logo\">\n");
+        sb.append("</p>\n\n");
+        sb.append("This document contains colourful examples of all themes available in the tomlib library.\n\n");
         Map<Class<? extends Theme>, Theme> themes = ThemeRegistry.getThemes();
         List<Theme> sortedThemes = themes.values().stream()
                 .sorted(Comparator.comparing(Theme::getName))
-                .collect(Collectors.toList());
+                .toList();
 
         // Generate Table of Contents
         sb.append("## Table of Contents\n\n");
@@ -240,21 +246,23 @@ public class DocumentationGenerator {
     }
 
     private static void appendColouredChar(StringBuilder sb, char c, int[] rgb) {
-        String escaped;
-        switch (c) {
-            case '<': escaped = "&lt;"; break;
-            case '>': escaped = "&gt;"; break;
-            case '&': escaped = "&amp;"; break;
-            case '"': escaped = "&quot;"; break;
-            default: escaped = String.valueOf(c);
-        }
+        String escaped = switch (c) {
+            case '<' -> "&lt;";
+            case '>' -> "&gt;";
+            case '&' -> "&amp;";
+            case '"' -> "&quot;";
+            default -> String.valueOf(c);
+        };
         sb.append(String.format("<span style=\"color: rgb(%d,%d,%d);\">%s</span>", rgb[0], rgb[1], rgb[2], escaped));
     }
 
     private static void generateMascotsDocs() throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append("# Mascots\n\n");
-        sb.append("This document contains colourful examples of all mascots available in the TomLib library.\n\n");
+        sb.append("<p align=\"right\">\n");
+        sb.append("  <img src=\"docs/images/logo.svg\" width=\"100\" alt=\"tomlib Logo\">\n");
+        sb.append("</p>\n\n");
+        sb.append("This document contains colourful examples of all mascots available in the tomlib library.\n\n");
 
         Map<Class<? extends Theme>, Theme> themes = ThemeRegistry.getThemes();
         List<Theme> sortedThemes = themes.values().stream()

@@ -1,0 +1,10 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Minimalist 't' within a simple geometric shape -->
+  <rect x="50" y="50" width="100" height="100" rx="10" fill="none" stroke="#5865F2" stroke-width="8" />
+  <path d="M92.5 70 V90 H82.5 V100 H92.5 V120 Q92.5 130 102.5 130 H112.5 V120 H102.5 V100 H112.5 V90 H102.5 V70 H92.5 Z" fill="#5865F2" />
+
+  <!-- Single colourful accent dot -->
+  <circle cx="150" cy="50" r="15" fill="#e74c3c" />
+
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="18" fill="#5865F2" text-anchor="middle" font-weight="bold">tomlib</text>
+</svg>

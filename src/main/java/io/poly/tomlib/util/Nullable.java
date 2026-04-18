@@ -29,12 +29,12 @@ public record Nullable<T>(T value) {
         return Objects.equals(m1, m2);
     }
 
-    ///  if value isn't null apply the mapper and return the result, otherwise return null
+    /// If value isn't null apply the mapper and return the result, otherwise return null.
     public <V> V map(Function<? super T, ? extends V> mapper) {
         return value == null ? null : mapper.apply(value);
     }
 
-    ///  if value isn't null apply the mapper and return the result, otherwise return Nullable.of(null)
+    /// If value isn't null apply the mapper and return the result, otherwise return `Nullable.of(null)`.
     public <V> Nullable<V> flatMap(Function<? super T, Nullable<V>> mapper) {
         return value == null ? of(null) : mapper.apply(value);
     }

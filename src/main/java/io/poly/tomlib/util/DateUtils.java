@@ -2,12 +2,9 @@ package io.poly.tomlib.util;
 
 import java.time.LocalDate;
 
-///
 /// Date-related utility methods for logo themes.
-///
 public class DateUtils {
 
-    ///
     /// Determines if the given date falls within the Easter weekend (Good Friday to Easter Monday).
     ///
     /// @param date the date to check

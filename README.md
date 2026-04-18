@@ -1,5 +1,9 @@
 # tomlib
 
+<p align="center">
+  <img src="docs/images/logo.svg" width="200" alt="tomlib Logo">
+</p>
+
 A common library for multiple projects, hosted on GitHub at [tombaldwin/tomlib](https://github.com/tombaldwin/tomlib).
 
 ## Overview

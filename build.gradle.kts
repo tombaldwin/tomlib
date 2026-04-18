@@ -45,4 +45,21 @@ tasks.register<JavaExec>("generateDocs") {
     description = "Generates documentation with examples of themes, mascots, and fonts."
     classpath = sourceSets["test"].runtimeClasspath
     mainClass.set("io.poly.tomlib.util.DocumentationGenerator")
+    dependsOn("copyLogo")
+}
+
+tasks.register<Copy>("copyLogo") {
+    group = "documentation"
+    description = "Copies the tomlib logo to standard locations (docs and .idea)."
+    from("src/main/resources/logos/tomlib_logo.svg")
+    into("docs/images")
+    rename { "logo.svg" }
+
+    doLast {
+        copy {
+            from("src/main/resources/logos/tomlib_logo.svg")
+            into(".idea")
+            rename { "icon.svg" }
+        }
+    }
 }
