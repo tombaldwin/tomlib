@@ -69,6 +69,12 @@ public abstract class AbstractAsciiFont implements AsciiFont {
         fontData.put(c, asciiChar);
     }
 
+    /// Returns the font data mapping.
+    /// @return the font data map.
+    public Map<Character, AsciiFontCharacter> getFontData() {
+        return fontData;
+    }
+
     @Override
     public String[] render(String text) {
         String lowercaseText = text.toLowerCase();

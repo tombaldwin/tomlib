@@ -1,6 +1,7 @@
 package io.poly.tomlib.util;
 
 import io.poly.tomlib.logo.*;
+import io.poly.tomlib.logo.font.AbstractAsciiFont;
 import io.poly.tomlib.logo.font.AsciiFont;
 import io.poly.tomlib.logo.font.DefaultAsciiFont;
 import io.poly.tomlib.logo.font.StarWarsAsciiFont;
@@ -31,29 +32,75 @@ public class DocumentationGenerator {
 
         for (AsciiFont font : fonts) {
             sb.append("### ").append(font.getClass().getSimpleName()).append("\n\n");
+            sb.append("#### Sample Text\n\n");
             sb.append("<pre ").append(PRE_STYLE).append(">\n");
 
             String logoText = "tomlib";
-            String[] rendered = font.render(logoText);
+            appendFontSample(sb, font, logoText);
+            sb.append("</pre>\n\n");
 
-            // For fonts, we'll use a simple rainbow effect similar to AbstractTheme's default
-            for (int row = 0; row < rendered.length; row++) {
-                String line = rendered[row];
-                for (int col = 0; col < line.length(); col++) {
-                    char c = line.charAt(col);
-                    if (Character.isWhitespace(c)) {
-                        sb.append(c);
-                    } else {
-                        double hue = (row * 15.0 + col * 5.0) % 360.0;
-                        int[] rgb = hsvToRgb(hue, 1.0, 1.0);
-                        appendColouredChar(sb, c, rgb);
-                    }
-                }
-                sb.append("\n");
-            }
+            sb.append("#### All Characters\n\n");
+            sb.append("<pre ").append(PRE_STYLE).append(">\n");
+            appendAllFontCharacters(sb, font);
             sb.append("</pre>\n\n");
         }
         Files.writeString(Paths.get("FONTS.md"), sb.toString());
+    }
+
+    private static void appendFontSample(StringBuilder sb, AsciiFont font, String text) {
+        String[] rendered = font.render(text);
+
+        // For fonts, we'll use a simple rainbow effect similar to AbstractTheme's default
+        for (int row = 0; row < rendered.length; row++) {
+            String line = rendered[row];
+            for (int col = 0; col < line.length(); col++) {
+                char c = line.charAt(col);
+                if (Character.isWhitespace(c)) {
+                    sb.append(c);
+                } else {
+                    double hue = (row * 15.0 + col * 5.0) % 360.0;
+                    int[] rgb = hsvToRgb(hue, 1.0, 1.0);
+                    appendColouredChar(sb, c, rgb);
+                }
+            }
+            sb.append("\n");
+        }
+    }
+
+    private static void appendAllFontCharacters(StringBuilder sb, AsciiFont font) {
+        if (!(font instanceof AbstractAsciiFont abstractFont)) {
+            appendFontSample(sb, font, "abcdefghijklmnopqrstuvwxyz0123456789");
+            return;
+        }
+
+        List<Character> sortedChars = abstractFont.getFontData().keySet().stream()
+                .filter(c -> c != ' ')
+                .sorted().toList();
+
+        int maxWidth = 100;
+        int currentWidth = 0;
+        StringBuilder currentLine = new StringBuilder();
+
+        for (Character c : sortedChars) {
+            int charWidth = abstractFont.getFontData().get(c).getWidth();
+            if (currentWidth + charWidth + (currentLine.isEmpty() ? 0 : 1) > maxWidth && !currentLine.isEmpty()) {
+                appendFontSample(sb, font, currentLine.toString());
+                sb.append("\n");
+                currentLine.setLength(0);
+                currentWidth = 0;
+            }
+
+            if (!currentLine.isEmpty()) {
+                currentLine.append(" ");
+                currentWidth += 1;
+            }
+            currentLine.append(c);
+            currentWidth += charWidth;
+        }
+
+        if (!currentLine.isEmpty()) {
+            appendFontSample(sb, font, currentLine.toString());
+        }
     }
 
     private static void generateThemesDocs() throws IOException {
