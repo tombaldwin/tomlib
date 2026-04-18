@@ -6,7 +6,6 @@ package io.poly.tomlib.logo.font;
 /// reminiscent of the Star Wars logo, featuring distinctive slanted edges
 /// and thematic letterforms.
 public class StarWarsAsciiFont extends AbstractAsciiFont {
-    private static final int FONT_HEIGHT = 6;
     private static final AsciiFontCharacter UNKNOWN_CHARACTER = new AsciiFontCharacter(
         "  ",
         "  ",
@@ -36,39 +35,39 @@ public class StarWarsAsciiFont extends AbstractAsciiFont {
             "/__/     \\__\\"
         );
         registerCompactCharacter('b',
-            " _______",
-            "|  __   \\",
-            "| |__)  |",
-            "|  __   <",
-            "|_______/"
+            " ________",
+            "|   __   \\",
+            "|  |__)  /",
+            "|   __   \\",
+            "|________/"
         );
         registerCompactCharacter('c',
             " _______",
-            "/  _____|",
-            "|  |",
-            "|  \\___,",
-            "\\______/"
+            "/   ____|",
+            "|   |",
+            "|   \\___,",
+            "\\_______|"
         );
         registerCompactCharacter('d',
-            "_______",
-            "|  __   \\",
-            "| |  \\   |",
-            "| |__/   |",
-            "|_______/"
+            " ________",
+            "|    __  \\",
+            "|   |  \\  |",
+            "|   |__/  |",
+            "|________/"
         );
         registerCompactCharacter('e',
             " _______",
-            "|   ____|",
-            "|  |__",
-            "|  |____",
+            "|   .___|",
+            "|   |___",
+            "|   |___",
             "|_______|"
         );
         registerCompactCharacter('f',
-            " _______",
-            "|   ____|",
-            "|  |__",
-            "|  |",
-            "|__|"
+            " ________",
+            "|    ____|",
+            "|   |__",
+            "|   |",
+            "|___|"
         );
         registerCompactCharacter('g',
             " _______",
@@ -78,46 +77,46 @@ public class StarWarsAsciiFont extends AbstractAsciiFont {
             "\\_______|"
         );
         registerCompactCharacter('h',
-            " __    __",
-            "|  |  |  |",
-            "|  |__|  |",
-            "|  |  |  |",
-            "|__|  |__|"
+            " ___    ____",
+            "|   |  |   |",
+            "|   |__|   |",
+            "|   |  |   |",
+            "|___|  |___|"
         );
         registerCompactCharacter('i',
-            " _______",
-            "|__   __|",
-            "   | |",
-            " __| |__",
-            "|_______|"
+            " ____",
+            "|    |",
+            "|    |",
+            "|    |",
+            "|____|"
         );
         registerCompactCharacter('j',
-            "   __",
-            "  |  |",
-            "  |  |",
-            " _|  |",
-            "\\____/"
+            "    ___",
+            "   |   |",
+            "   |   |",
+            ",__|   |",
+            "\\______/"
         );
         registerCompactCharacter('k',
-            " __   __",
-            "|  | /  /",
-            "|  |/  /",
-            "|  |\\  \\",
-            "|__| \\__\\"
+            " ___   ___",
+            "|   | /   /",
+            "|   |/   /",
+            "|   |\\   \\",
+            "|___| \\___\\"
         );
         registerCompactCharacter('l',
-            " __",
-            "|  |",
-            "|  |",
-            "|  `____",
-            "|_______|"
+            " ___",
+            "|   |",
+            "|   |",
+            "|   `____",
+            "|________|"
         );
         registerCompactCharacter('m',
-            " ___    ___",
-            "|   \\  /   |",
-            "|  |\\  /|  |",
-            "|  | \\/ |  |",
-            "|__|    |__|"
+            " ____    ____",
+            "|    \\  /    |",
+            "|     \\/     |",
+            "|   |    |   |",
+            "|___|\\__/|___|"
         );
         registerCompactCharacter('n',
             " ___   ___",
@@ -134,11 +133,11 @@ public class StarWarsAsciiFont extends AbstractAsciiFont {
             " \\_______/"
         );
         registerCompactCharacter('p',
-            " _______",
-            "|   __  \\",
-            "|  |__)  |",
-            "|   ____/",
-            "|__|"
+            " ________",
+            "|    __  \\",
+            "|   |__)  |",
+            "|    ____/",
+            "|___|"
         );
         registerCompactCharacter('q',
             " ________",
@@ -148,11 +147,11 @@ public class StarWarsAsciiFont extends AbstractAsciiFont {
             " \\______\\_\\"
         );
         registerCompactCharacter('r',
-            " _______",
-            "|   __  \\   ",
-            "|  |__)  |   ",
-            "|  | \\  /____",
-            "|__|  \\______|"
+            " ________",
+            "|    __  \\   ",
+            "|   |__)  |   ",
+            "|   | \\  /____",
+            "|___|  \\______|"
         );
         registerCompactCharacter('s',
             "    ___________,",
@@ -162,11 +161,11 @@ public class StarWarsAsciiFont extends AbstractAsciiFont {
             "|__________/  "
         );
         registerCompactCharacter('t',
-            " ________",
-            "|__   ___|",
-            "   |  |",
-            "   |  |",
-            "   |__|"
+            " _________",
+            "|__    ___|",
+            "   |   |",
+            "   |   |",
+            "   |___|"
         );
         registerCompactCharacter('u',
             " __    __",
@@ -176,11 +175,11 @@ public class StarWarsAsciiFont extends AbstractAsciiFont {
             " \\______/"
         );
         registerCompactCharacter('v',
-            "__        __",
-            "\\  \\    /  /",
-            " \\  \\  /  /",
-            "  \\  \\/  /",
-            "   \\____/"
+            "___        ___",
+            "\\   \\    /   /",
+            " \\   \\  /   /",
+            "  \\   \\/   /",
+            "   \\______/"
         );
         registerCompactCharacter('w',
             "___   ___   ___",
@@ -190,42 +189,42 @@ public class StarWarsAsciiFont extends AbstractAsciiFont {
             "   \\__/  \\__/  "
         );
         registerCompactCharacter('x',
-            "___    ___",
-            "\\  \\  /  /",
-            " \\  \\/  /",
-            " /  /\\  \\",
-            "/__/  \\__\\"
+            "____    ____",
+            "\\   \\  /   /",
+            " \\   \\/   /",
+            " /   /\\   \\",
+            "/___/  \\___\\"
         );
         registerCompactCharacter('y',
-            "___    ___",
-            "\\  \\  /  /",
-            " \\  \\/  /",
+            "____  ____",
+            "\\   \\/   /",
+            " \\      /",
             "  |    |",
             "  `____'"
         );
         registerCompactCharacter('z',
-            " _______",
-            "|___    |",
-            "   /   /",
-            "  /   /____",
-            " |_________|"
+            " _________",
+            "|____    /",
+            "    /   /",
+            "   /   /____",
+            "  /_________|"
         );
         registerCompactCharacter(' ',
             " "
         );
         registerCompactCharacter('0',
-            " _______",
+            " ______",
             "/   _  \\",
             "|  | |  |",
             "|  |_|  |",
             "\\______/"
         );
         registerCompactCharacter('1',
-            " __",
-            "/_ |",
-            " | |",
-            " | |",
-            " |_|"
+            " ____",
+            "/_   |",
+            " |   |",
+            " |   |",
+            " |___|"
         );
         registerCompactCharacter('2',
             "_______",
@@ -242,11 +241,11 @@ public class StarWarsAsciiFont extends AbstractAsciiFont {
             "|_______/"
         );
         registerCompactCharacter('4',
-            " _    _",
-            "| |  | |",
-            "| |__| |__",
-            "|____   __|",
-            "     |_|"
+            "   _____",
+            "  /     |",
+            " / /|   |_",
+            "|___     _|",
+            "    |___|"
         );
         registerCompactCharacter('5',
             " _______",

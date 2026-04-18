@@ -5,8 +5,6 @@ import io.poly.tomlib.logo.MascotRegistry;
 import io.poly.tomlib.logo.font.StarWarsAsciiFont;
 import io.poly.tomlib.logo.theme.may4th.mascot.*;
 
-import java.util.Random;
-
 import static io.poly.tomlib.logo.theme.easter.EasterTheme.arrayOf;
 
 /// Theme for May the 4th (Star Wars Day).

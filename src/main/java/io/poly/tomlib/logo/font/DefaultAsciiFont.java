@@ -1,14 +1,9 @@
 package io.poly.tomlib.logo.font;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /// The default ASCII font implementation, providing a 6-line high lowercase-only font.
 ///
 /// This implementation defines the visual behaviour for lowercase letters and some punctuation.
 public class DefaultAsciiFont extends AbstractAsciiFont {
-    private static final int FONT_HEIGHT = 6;
     private static final AsciiFontCharacter UNKNOWN_CHARACTER = new AsciiFontCharacter("  ", "  ", "  ", "  ", "  ", "  ");
 
     public DefaultAsciiFont() {

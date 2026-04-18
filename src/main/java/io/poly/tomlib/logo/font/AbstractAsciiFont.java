@@ -103,10 +103,10 @@ public abstract class AbstractAsciiFont implements AsciiFont {
             AsciiFontCharacter character = fontData.get(c);
             int charWidth = character.getWidth();
 
-            int widthToAdd = charWidth + (currentText.length() > 0 ? 1 : 0);
+            int widthToAdd = charWidth + (!currentText.isEmpty() ? 1 : 0);
 
-            if (currentWidth + widthToAdd > maxWidth && currentText.length() > 0) {
-                System.out.println("Key: " + keyBuilder.toString());
+            if (currentWidth + widthToAdd > maxWidth && !currentText.isEmpty()) {
+                System.out.println("Key: " + keyBuilder);
                 printRenderedText(currentText.toString());
                 System.out.println();
                 currentText.setLength(0);
@@ -114,7 +114,7 @@ public abstract class AbstractAsciiFont implements AsciiFont {
                 currentWidth = 0;
             }
 
-            if (currentText.length() > 0) {
+            if (!currentText.isEmpty()) {
                 currentText.append(' ');
                 keyBuilder.append(' ');
                 currentWidth += 1;
@@ -123,15 +123,13 @@ public abstract class AbstractAsciiFont implements AsciiFont {
             currentText.append(c);
             keyBuilder.append(c);
             int spaces = charWidth - 1;
-            for (int s = 0; s < spaces; s++) {
-                keyBuilder.append(' ');
-            }
+            keyBuilder.append(" ".repeat(Math.max(0, spaces)));
 
             currentWidth += charWidth;
         }
 
-        if (currentText.length() > 0) {
-            System.out.println("Key: " + keyBuilder.toString());
+        if (!currentText.isEmpty()) {
+            System.out.println("Key: " + keyBuilder);
             printRenderedText(currentText.toString());
         }
     }
