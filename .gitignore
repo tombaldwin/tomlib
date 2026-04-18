@@ -41,3 +41,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Auto-generated documentation ###
+FONTS.md
+MASCOTS.md
+THEMES.md

@@ -6,6 +6,11 @@ A common library for multiple projects, hosted on GitHub at [tombaldwin/tomlib](
 
 This project contains common library code used across various projects by Tom Baldwin.
 
+## Visual Documentation
+- [**Themes**](THEMES.md)
+- [**Mascots**](MASCOTS.md)
+- [**Fonts**](FONTS.md)
+
 ## Usage (JitPack)
 
 This library is published to JitPack.

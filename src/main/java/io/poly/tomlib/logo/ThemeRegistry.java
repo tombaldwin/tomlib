@@ -20,8 +20,11 @@ public class ThemeRegistry {
             for (Theme theme : loader) {
                 INSTANCES.put(theme.getClass(), theme);
             }
-            // If ServiceLoader failed or returned nothing, manually register AbstractTheme implementations
-            // if we have a known list, or just rely on getTheme to load them on demand.
+            // Fallback: search for AbstractTheme too as that's what's in the SPI file
+            ServiceLoader<AbstractTheme> abstractLoader = ServiceLoader.load(AbstractTheme.class);
+            for (AbstractTheme theme : abstractLoader) {
+                INSTANCES.putIfAbsent(theme.getClass(), theme);
+            }
         }
         return INSTANCES;
     }

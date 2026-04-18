@@ -39,3 +39,10 @@ publishing {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.register<JavaExec>("generateDocs") {
+    group = "documentation"
+    description = "Generates documentation with examples of themes, mascots, and fonts."
+    classpath = sourceSets["test"].runtimeClasspath
+    mainClass.set("io.poly.tomlib.util.DocumentationGenerator")
+}
