@@ -28,6 +28,11 @@ public class ValentinesTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active on Valentine's Day (14th February).";
+    }
+
+    @Override
     public int getPriority() {
         return 5;
     }

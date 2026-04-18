@@ -77,6 +77,11 @@ public class EasterTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active during the Easter weekend.";
+    }
+
+    @Override
     public int getPriority() {
         return 5;
     }

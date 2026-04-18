@@ -4,6 +4,7 @@ import io.poly.tomlib.logo.*;
 import io.poly.tomlib.logo.font.AbstractAsciiFont;
 import io.poly.tomlib.logo.font.AsciiFont;
 
+import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,6 +17,11 @@ public class DocumentationGenerator {
     private static final String PRE_STYLE = "style=\"background-color: #0c0c0c; color: #cccccc; padding: 15px; border-radius: 5px; font-family: monospace; line-height: 1.2; overflow-x: auto;\"";
 
     public static void main(String[] args) throws IOException {
+        new DocumentationGenerator().generateAllDocs();
+    }
+
+    @Test
+    void generateAllDocs() throws IOException {
         generateFontsDocs();
         generateThemesDocs();
         generateMascotsDocs();
@@ -138,6 +144,11 @@ public class DocumentationGenerator {
 
         for (Theme theme : sortedThemes) {
             sb.append("### ").append(theme.getName()).append(" Theme\n\n");
+
+            String activationRule = theme.getActivationRule();
+            if (activationRule != null) {
+                sb.append("**Activation Rule:** ").append(activationRule).append("\n\n");
+            }
 
             sb.append("#### Normal Mode\n\n");
             sb.append("<pre ").append(PRE_STYLE).append(">\n");

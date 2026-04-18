@@ -29,6 +29,11 @@ public class NewYearTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active on New Year's Eve and New Year's Day (31st December - 1st January).";
+    }
+
+    @Override
     public int getPriority() {
         return 20;
     }

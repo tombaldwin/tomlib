@@ -96,6 +96,13 @@ public interface Theme {
         return null;
     }
 
+    /// Returns a human-readable description of when this theme is active.
+    /// @return the activation rule description.
+    @Nullable
+    default String getActivationRule() {
+        return null;
+    }
+
     char glitchNoise();
 
     int noiseCount();

@@ -59,6 +59,11 @@ public class FestiveTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active throughout the month of December.";
+    }
+
+    @Override
     public int getPriority() {
         return 5;
     }

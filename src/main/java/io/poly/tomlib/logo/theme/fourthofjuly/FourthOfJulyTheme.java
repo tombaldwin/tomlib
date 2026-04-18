@@ -72,6 +72,11 @@ public class FourthOfJulyTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active on the 4th of July (Independence Day).";
+    }
+
+    @Override
     public int getPriority() {
         return 30;
     }

@@ -34,6 +34,11 @@ public class HalloweenLogoTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active on Halloween (31st October).";
+    }
+
+    @Override
     public int getPriority() {
         return 10;
     }

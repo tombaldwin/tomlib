@@ -66,6 +66,11 @@ public class May4thTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active on May the 4th (Star Wars Day).";
+    }
+
+    @Override
     public int getPriority() {
         return 30;
     }

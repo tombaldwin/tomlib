@@ -26,6 +26,11 @@ public class BirthdayTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active on the user's inferred birthday.";
+    }
+
+    @Override
     public int getPriority() {
         return 30;
     }

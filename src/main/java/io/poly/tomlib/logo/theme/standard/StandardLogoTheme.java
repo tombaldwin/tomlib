@@ -30,4 +30,9 @@ public class StandardLogoTheme extends AbstractTheme {
         // if no other seasonal theme matches.
         return true;
     }
+
+    @Override
+    public String getActivationRule() {
+        return "Always active as a fallback theme.";
+    }
 }

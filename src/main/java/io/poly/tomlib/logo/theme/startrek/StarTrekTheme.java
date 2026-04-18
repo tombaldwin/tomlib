@@ -38,6 +38,11 @@ public class StarTrekTheme extends AbstractTheme {
     }
 
     @Override
+    public String getActivationRule() {
+        return "Active on Star Trek Day (8th September).";
+    }
+
+    @Override
     public int getPriority() {
         return 25;
     }
