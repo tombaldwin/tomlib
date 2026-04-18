@@ -77,7 +77,7 @@ public class LogoPrinter {
     }
 
     boolean glitch() {
-        return new java.util.Random().nextDouble() < glitchProbability;
+        return java.util.random.RandomGenerator.getDefault().nextDouble() < glitchProbability;
     }
 
     ///
