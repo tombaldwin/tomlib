@@ -83,7 +83,7 @@ class NullableTest {
     }
 
     @Test
-    void toString_behavior() {
+    void toString_behaviour() {
         Nullable<String> n = Nullable.of("test");
         assertEquals("Nullable[value=test]", n.toString());
     }
