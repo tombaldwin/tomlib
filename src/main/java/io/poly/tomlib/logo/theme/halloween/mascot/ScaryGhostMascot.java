@@ -19,15 +19,16 @@ public class ScaryGhostMascot extends AbstractMascot {
         return new int[]{255, 255, 255}; // White ghost
     }
 
+    private static final java.util.List<String> QUOTES = java.util.List.of(
+        "I'm watching you...",
+        "Run if you can!",
+        "I'm a tall shadow in the dark.",
+        "You can't escape the spooky!",
+        "Did you hear that noise?"
+    );
+
     @Override
-    public String getQuote() {
-        String[] quotes = {
-            "I'm watching you...",
-            "Run if you can!",
-            "I'm a tall shadow in the dark.",
-            "You can't escape the spooky!",
-            "Did you hear that noise?"
-        };
-        return quotes[new java.util.Random().nextInt(quotes.length)];
+    public java.util.List<String> getQuotes() {
+        return QUOTES;
     }
 }

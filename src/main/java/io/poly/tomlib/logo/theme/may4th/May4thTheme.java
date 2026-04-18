@@ -1,9 +1,11 @@
 package io.poly.tomlib.logo.theme.may4th;
 
+import io.poly.tomlib.logo.AbstractMascot;
 import io.poly.tomlib.logo.AbstractTheme;
 import io.poly.tomlib.logo.MascotRegistry;
 import io.poly.tomlib.logo.font.StarWarsAsciiFont;
 import io.poly.tomlib.logo.theme.may4th.mascot.*;
+import io.poly.tomlib.logo.theme.may4th.mascot.trek.*;
 
 import static io.poly.tomlib.logo.theme.easter.EasterTheme.arrayOf;
 
@@ -15,7 +17,7 @@ public class May4thTheme extends AbstractTheme {
             "May 4th",
             arrayOf(XWingMascot.class, R2D2Mascot.class, VaderMascot.class, StormtrooperMascot.class,
                 DeathStarMascot.class, TieFighterMascot.class, YodaMascot.class, FalconMascot.class),
-            arrayOf(JarJarMascot.class),
+            arrayOf(JarJarMascot.class, SpockMascot.class, KirkMascot.class, PicardMascot.class),
             new StarWarsAsciiFont()
         );
     }
@@ -70,7 +72,14 @@ public class May4thTheme extends AbstractTheme {
 
     @Override
     public String getGlitchMessage() {
-        return "[!] JAR-JAR SAYS: " + MascotRegistry.getMascot(JarJarMascot.class).getQuote();
+        AbstractMascot mascot = getMascot(true);
+        String prefix = "[!] ";
+        if (mascot instanceof JarJarMascot) prefix += "JAR-JAR SAYS: ";
+        else if (mascot instanceof SpockMascot) prefix += "SPOCK SAYS: ";
+        else if (mascot instanceof KirkMascot) prefix += "KIRK SAYS: ";
+        else if (mascot instanceof PicardMascot) prefix += "PICARD SAYS: ";
+
+        return prefix + mascot.getQuote();
     }
 
     @Override

@@ -19,15 +19,16 @@ public class CuteGhostMascot extends AbstractMascot {
         return new int[]{255, 255, 255}; // White ghost
     }
 
+    private static final java.util.List<String> QUOTES = java.util.List.of(
+        "I'm too cute to be spooky!",
+        "Treats over tricks, please!",
+        "Wanna be my friend?",
+        "I'm just a little ghost.",
+        "Peek-a-boo!"
+    );
+
     @Override
-    public String getQuote() {
-        String[] quotes = {
-            "I'm too cute to be spooky!",
-            "Treats over tricks, please!",
-            "Wanna be my friend?",
-            "I'm just a little ghost.",
-            "Peek-a-boo!"
-        };
-        return quotes[new java.util.Random().nextInt(quotes.length)];
+    public java.util.List<String> getQuotes() {
+        return QUOTES;
     }
 }

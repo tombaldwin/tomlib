@@ -50,6 +50,25 @@ class May4thThemeTest {
         testPrinter.printWithTheme(true, theme);
     }
 
+    /// Prints all mascots associated with the May 4th theme, including glitch variants.
+    @Test
+    void printAllMascots() {
+        May4thTheme theme = new May4thTheme();
+        System.out.println("--- All May 4th Mascots (Normal) ---");
+        theme.getMascots(false).forEach(mascot -> {
+            System.out.println("Mascot: " + mascot.getClass().getSimpleName());
+            mascot.print();
+            System.out.println();
+        });
+
+        System.out.println("--- All May 4th Mascots (Glitch) ---");
+        theme.getMascots(true).forEach(mascot -> {
+            System.out.println("Mascot: " + mascot.getClass().getSimpleName());
+            mascot.print();
+            System.out.println();
+        });
+    }
+
     private static class TestLogoPrinter extends LogoPrinter {
         TestLogoPrinter(String text) {
             super(text);

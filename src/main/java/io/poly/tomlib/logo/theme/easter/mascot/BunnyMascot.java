@@ -17,21 +17,22 @@ public class BunnyMascot extends AbstractMascot {
         };
     }
 
+    private static final java.util.List<String> QUOTES = java.util.List.of(
+        "I'm having an egg-stra special day!",
+        "Don't worry, be hoppy!",
+        "I'm egg-cited for Easter!",
+        "That's all, yolks!",
+        "No bunny compares to you!",
+        "I'm some-bunny special!",
+        "Let's get cracking!",
+        "You're an egg-ceptional friend!",
+        "Have a hollow-day!",
+        "I'm feeling a bit sheepish!"
+    );
+
     @Override
-    public String getQuote() {
-        String[] quotes = {
-            "I'm having an egg-stra special day!",
-            "Don't worry, be hoppy!",
-            "I'm egg-cited for Easter!",
-            "That's all, yolks!",
-            "No bunny compares to you!",
-            "I'm some-bunny special!",
-            "Let's get cracking!",
-            "You're an egg-ceptional friend!",
-            "Have a hollow-day!",
-            "I'm feeling a bit sheepish!"
-        };
-        return quotes[new java.util.Random().nextInt(quotes.length)];
+    public java.util.List<String> getQuotes() {
+        return QUOTES;
     }
 
     @Override

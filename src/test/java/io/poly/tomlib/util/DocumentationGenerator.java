@@ -311,6 +311,20 @@ public class DocumentationGenerator {
             sb.append("\n");
         }
         sb.append("</pre>\n\n");
+
+        // Add quotes if they exist
+        java.util.List<String> quotes = mascot.getQuotes();
+        if (!quotes.isEmpty()) {
+            if (quotes.size() == 1) {
+                sb.append("**Quote:** *\"").append(quotes.get(0)).append("\"*\n\n");
+            } else {
+                sb.append("**Quotes:**\n");
+                for (String q : quotes) {
+                    sb.append("- *\"").append(q).append("\"*\n");
+                }
+                sb.append("\n");
+            }
+        }
     }
 
     private static int[] hsvToRgb(double h, double s, double v) {

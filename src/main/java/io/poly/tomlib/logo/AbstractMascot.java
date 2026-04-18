@@ -25,7 +25,17 @@ public abstract class AbstractMascot {
     /// @return a random quote or null.
     ///
     public String getQuote() {
-        return null;
+        java.util.List<String> quotes = getQuotes();
+        if (quotes.isEmpty()) return null;
+        return quotes.get((int) (Math.random() * quotes.size()));
+    }
+
+    ///
+    /// Returns a list of all possible quotes for the mascot.
+    /// @return a list of quotes, or an empty list if none.
+    ///
+    public java.util.List<String> getQuotes() {
+        return java.util.Collections.emptyList();
     }
 
     ///
