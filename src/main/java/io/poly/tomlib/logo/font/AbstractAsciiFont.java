@@ -50,6 +50,14 @@ public abstract class AbstractAsciiFont implements AsciiFont {
     /// Associates a character with its ASCII representation.
     ///
     /// @param c the character.
+    /// @param lines the lines representing the character in ASCII art.
+    protected void registerCharacter(char c, String... lines) {
+        registerCharacter(c, new AsciiFontCharacter(lines));
+    }
+
+    /// Associates a character with its ASCII representation.
+    ///
+    /// @param c the character.
     /// @param asciiChar the ASCII representation.
     protected void registerCharacter(char c, AsciiFontCharacter asciiChar) {
         if (asciiChar.getHeight() != this.fontHeight) {
