@@ -3,10 +3,10 @@ package io.poly.tomlib.util;
 import java.net.URI;
 import java.net.URL;
 
-/// Utility class for fetching and estimating the US national debt.
-public final class DebtUtils {
+/// Utility class for fetching and estimating live data, such as the US national debt.
+public final class LiveDataUtils {
 
-    private DebtUtils() {
+    private LiveDataUtils() {
         // Utility class
     }
 

@@ -1,12 +1,10 @@
 package io.poly.tomlib.logo.theme.fourthofjuly;
 
-import io.poly.tomlib.logo.AbstractMascot;
 import io.poly.tomlib.logo.AbstractTheme;
-import io.poly.tomlib.logo.MascotRegistry;
 import io.poly.tomlib.logo.theme.fourthofjuly.mascot.EagleMascot;
 import io.poly.tomlib.logo.theme.fourthofjuly.mascot.USFireworksMascot;
 import io.poly.tomlib.logo.theme.fourthofjuly.mascot.USFlagMascot;
-import io.poly.tomlib.util.DebtUtils;
+import io.poly.tomlib.util.LiveDataUtils;
 
 import java.util.Random;
 
@@ -63,7 +61,7 @@ public class FourthOfJulyTheme extends AbstractTheme {
 
     @Override
     public String getGlitchMessage() {
-        return "[!] GLITCH DETECTED: US National Debt: " + DebtUtils.getUSNationalDebt();
+        return "[!] GLITCH DETECTED: US National Debt: " + LiveDataUtils.getUSNationalDebt();
     }
 
     @Override

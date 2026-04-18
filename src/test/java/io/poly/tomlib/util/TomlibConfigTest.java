@@ -59,7 +59,7 @@ class TomlibConfigTest {
     @Test
     void networkRespectsConfig() {
         System.setProperty("tomlib.network.enabled", "false");
-        String debt = DebtUtils.getUSNationalDebt();
+        String debt = io.poly.tomlib.util.LiveDataUtils.getUSNationalDebt();
         assertTrue(debt.contains("(ESTIMATED)"));
     }
 }

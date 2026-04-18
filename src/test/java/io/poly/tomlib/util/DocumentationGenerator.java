@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /// Utility to auto-generate documentation with examples of themes, mascots, and fonts.
+@SuppressWarnings("NewClassNamingConvention")
 public class DocumentationGenerator {
 
     private static final String PRE_STYLE = "style=\"background-color: #0c0c0c; color: #cccccc; padding: 15px; border-radius: 5px; font-family: monospace; line-height: 1.2; overflow-x: auto;\"";

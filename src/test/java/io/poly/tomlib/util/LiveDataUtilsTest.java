@@ -3,11 +3,11 @@ package io.poly.tomlib.util;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class DebtUtilsTest {
+class LiveDataUtilsTest {
 
     @Test
-    void getNationalDebtEstimate() {
-        String estimate = DebtUtils.getNationalDebtEstimate();
+    void nationalDebtEstimateProvidesCorrectFormat() {
+        String estimate = LiveDataUtils.getNationalDebtEstimate();
         assertNotNull(estimate);
         assertTrue(estimate.startsWith("$"));
         assertTrue(estimate.endsWith("(ESTIMATED)"));
@@ -16,8 +16,8 @@ class DebtUtilsTest {
     }
 
     @Test
-    void getUSNationalDebt() {
-        String debt = DebtUtils.getUSNationalDebt();
+    void usNationalDebtReturnsFormattedAmount() {
+        String debt = LiveDataUtils.getUSNationalDebt();
         assertNotNull(debt);
         assertTrue(debt.startsWith("$"));
         // Should either be a real value or an estimate
