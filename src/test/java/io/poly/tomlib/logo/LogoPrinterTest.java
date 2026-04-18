@@ -419,6 +419,17 @@ public class LogoPrinterTest {
     }
 
     @Test
+    public void printVeryLongLogo() {
+        System.out.println("--- VERY LONG LOGO ---");
+        new LogoPrinter("this-is-a-very-long-logo-text-that-should-expand-the-total-width") {
+            @Override
+            public void printLogo(boolean glitchMode) {
+                printLogoWithTheme(glitchMode, ThemeRegistry.getStandardTheme());
+            }
+        }.printLogo(false);
+    }
+
+    @Test
     public void birthdayInference() {
         System.out.println("--- TESTING BIRTHDAY INFERENCE ---");
 

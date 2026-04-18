@@ -18,7 +18,7 @@ public abstract class AbstractTheme implements Theme {
     protected RandomGenerator rnd = RandomGenerator.getDefault();
 
     protected AbstractTheme(String name, Class<? extends AbstractMascot>[] normalMascots, Class<? extends AbstractMascot>[] glitchMascots) {
-        this(name, normalMascots, glitchMascots, new DefaultAsciiFont());
+        this(name, normalMascots, glitchMascots, FontRegistry.getDefaultFont());
     }
 
     protected AbstractTheme(String name, Class<? extends AbstractMascot>[] normalMascots, Class<? extends AbstractMascot>[] glitchMascots, AsciiFont font) {

@@ -46,3 +46,6 @@ bin/
 FONTS.md
 MASCOTS.md
 THEMES.md
+
+### Claude local settings ###
+claude.settings.local.json

@@ -142,11 +142,24 @@ public class LogoPrinter {
         String[] starsRight = theme.getStarsRight(glitchMode);
 
 
+        int maxLogoWidth = 0;
+        for (String line : logo) {
+            String logoLine = theme.showStars() ? (starsLeft[0] + line + starsRight[0]) : line;
+            maxLogoWidth = Math.max(maxLogoWidth, logoLine.length());
+        }
+
+        int maxMascotWidth = 0;
+        for (String line : mascotArt) {
+            maxMascotWidth = Math.max(maxMascotWidth, line.length());
+        }
+
+        int logoStartColumn = 4;
+        int mascotMargin = 4;
+        int mascotColumn = Math.max(72, logoStartColumn + maxLogoWidth + mascotMargin);
+        int totalWidth = mascotColumn + maxMascotWidth + 4;
+
         int maxLines = Math.max(logo.length, mascot != null ? 6 : 0);
         for (int row = 0; row < maxLines; row++) {
-            int totalWidth = 72;
-            int mascotColumn = 52;
-            int logoStartColumn = 4; // Margin for noise
 
             char[] lineArr = new char[totalWidth];
             java.util.Arrays.fill(lineArr, ' ');
