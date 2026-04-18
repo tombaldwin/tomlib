@@ -237,31 +237,80 @@ public class DocumentationGenerator {
         StringBuilder sb = new StringBuilder();
         sb.append("# Mascots\n\n");
         sb.append("This document contains colourful examples of all mascots available in the TomLib library.\n\n");
-        Map<Class<? extends AbstractMascot>, AbstractMascot> mascots = MascotRegistry.getMascots();
-        List<AbstractMascot> sortedMascots = mascots.values().stream()
-                .sorted(Comparator.comparing(m -> m.getClass().getSimpleName()))
-                .collect(Collectors.toList());
 
-        for (AbstractMascot mascot : sortedMascots) {
-            sb.append("### ").append(mascot.getClass().getSimpleName()).append("\n\n");
-            sb.append("<pre ").append(PRE_STYLE).append(">\n");
-            String[] art = mascot.getArt();
-            for (int row = 0; row < art.length; row++) {
-                String line = art[row];
-                for (int col = 0; col < line.length(); col++) {
-                    char c = line.charAt(col);
-                    if (Character.isWhitespace(c)) {
-                        sb.append(c);
-                    } else {
-                        int[] rgb = mascot.getColour(c, row, col);
-                        appendColouredChar(sb, c, rgb);
-                    }
-                }
-                sb.append("\n");
+        Map<Class<? extends Theme>, Theme> themes = ThemeRegistry.getThemes();
+        List<Theme> sortedThemes = themes.values().stream()
+                .sorted(Comparator.comparing(Theme::getName))
+                .toList();
+
+        Set<AbstractMascot> documentedMascots = new HashSet<>();
+
+        for (Theme theme : sortedThemes) {
+            List<AbstractMascot> themeMascots = new ArrayList<>();
+            if (theme instanceof AbstractTheme abstractTheme) {
+                themeMascots.addAll(abstractTheme.getMascots(null));
+            } else {
+                AbstractMascot normal = theme.getMascot(false);
+                if (normal != null) themeMascots.add(normal);
+                AbstractMascot glitch = theme.getMascot(true);
+                if (glitch != null) themeMascots.add(glitch);
             }
-            sb.append("</pre>\n\n");
+
+            // Also check package for mascots that might be associated but not registered in the theme
+            String themePackage = theme.getClass().getPackageName();
+            String mascotPackage = themePackage + ".mascot";
+            MascotRegistry.getMascots().values().stream()
+                    .filter(m -> m.getClass().getPackageName().equals(mascotPackage))
+                    .forEach(themeMascots::add);
+
+            List<AbstractMascot> distinctThemeMascots = themeMascots.stream()
+                    .distinct()
+                    .sorted(Comparator.comparing(m -> m.getClass().getSimpleName()))
+                    .toList();
+
+            if (!distinctThemeMascots.isEmpty()) {
+                sb.append("## ").append(theme.getName()).append(" Theme\n\n");
+                for (AbstractMascot mascot : distinctThemeMascots) {
+                    appendMascotToDocs(sb, mascot);
+                    documentedMascots.add(mascot);
+                }
+            }
         }
+
+        // Catch-all for mascots not assigned to any theme
+        List<AbstractMascot> allMascots = MascotRegistry.getMascots().values().stream()
+                .filter(m -> !documentedMascots.contains(m))
+                .sorted(Comparator.comparing(m -> m.getClass().getSimpleName()))
+                .toList();
+
+        if (!allMascots.isEmpty()) {
+            sb.append("## Other Mascots\n\n");
+            for (AbstractMascot mascot : allMascots) {
+                appendMascotToDocs(sb, mascot);
+            }
+        }
+
         Files.writeString(Paths.get("MASCOTS.md"), sb.toString());
+    }
+
+    private static void appendMascotToDocs(StringBuilder sb, AbstractMascot mascot) {
+        sb.append("### ").append(mascot.getClass().getSimpleName()).append("\n\n");
+        sb.append("<pre ").append(PRE_STYLE).append(">\n");
+        String[] art = mascot.getArt();
+        for (int row = 0; row < art.length; row++) {
+            String line = art[row];
+            for (int col = 0; col < line.length(); col++) {
+                char c = line.charAt(col);
+                if (Character.isWhitespace(c)) {
+                    sb.append(c);
+                } else {
+                    int[] rgb = mascot.getColour(c, row, col);
+                    appendColouredChar(sb, c, rgb);
+                }
+            }
+            sb.append("\n");
+        }
+        sb.append("</pre>\n\n");
     }
 
     private static int[] hsvToRgb(double h, double s, double v) {
