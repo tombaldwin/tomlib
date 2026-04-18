@@ -3,8 +3,6 @@ package io.poly.tomlib.util;
 import io.poly.tomlib.logo.*;
 import io.poly.tomlib.logo.font.AbstractAsciiFont;
 import io.poly.tomlib.logo.font.AsciiFont;
-import io.poly.tomlib.logo.font.DefaultAsciiFont;
-import io.poly.tomlib.logo.font.StarWarsAsciiFont;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,7 +26,18 @@ public class DocumentationGenerator {
         StringBuilder sb = new StringBuilder();
         sb.append("# Fonts\n\n");
         sb.append("This document contains colourful examples of all fonts available in the TomLib library.\n\n");
-        List<AsciiFont> fonts = List.of(new DefaultAsciiFont(), new StarWarsAsciiFont());
+
+        List<AsciiFont> fonts = FontRegistry.getFonts().values().stream()
+                .sorted(Comparator.comparing(f -> f.getClass().getSimpleName()))
+                .toList();
+
+        // Generate Table of Contents
+        sb.append("## Table of Contents\n\n");
+        for (AsciiFont font : fonts) {
+            String name = font.getClass().getSimpleName();
+            sb.append("- [").append(name).append("](#").append(name.toLowerCase()).append(")\n");
+        }
+        sb.append("\n---\n\n");
 
         for (AsciiFont font : fonts) {
             sb.append("### ").append(font.getClass().getSimpleName()).append("\n\n");
@@ -111,6 +120,15 @@ public class DocumentationGenerator {
         List<Theme> sortedThemes = themes.values().stream()
                 .sorted(Comparator.comparing(Theme::getName))
                 .collect(Collectors.toList());
+
+        // Generate Table of Contents
+        sb.append("## Table of Contents\n\n");
+        for (Theme theme : sortedThemes) {
+            String name = theme.getName();
+            String anchor = name.toLowerCase().replace(" ", "-") + "-theme";
+            sb.append("- [").append(name).append(" Theme](#").append(anchor).append(")\n");
+        }
+        sb.append("\n---\n\n");
 
         for (Theme theme : sortedThemes) {
             sb.append("### ").append(theme.getName()).append(" Theme\n\n");
@@ -243,54 +261,81 @@ public class DocumentationGenerator {
                 .sorted(Comparator.comparing(Theme::getName))
                 .toList();
 
+        // Collect all mascots grouped by theme first to generate Table of Contents
+        Map<String, List<AbstractMascot>> mascotsByTheme = new LinkedHashMap<>();
         Set<AbstractMascot> documentedMascots = new HashSet<>();
 
         for (Theme theme : sortedThemes) {
-            List<AbstractMascot> themeMascots = new ArrayList<>();
-            if (theme instanceof AbstractTheme abstractTheme) {
-                themeMascots.addAll(abstractTheme.getMascots(null));
-            } else {
-                AbstractMascot normal = theme.getMascot(false);
-                if (normal != null) themeMascots.add(normal);
-                AbstractMascot glitch = theme.getMascot(true);
-                if (glitch != null) themeMascots.add(glitch);
-            }
-
-            // Also check package for mascots that might be associated but not registered in the theme
-            String themePackage = theme.getClass().getPackageName();
-            String mascotPackage = themePackage + ".mascot";
-            MascotRegistry.getMascots().values().stream()
-                    .filter(m -> m.getClass().getPackageName().equals(mascotPackage))
-                    .forEach(themeMascots::add);
-
-            List<AbstractMascot> distinctThemeMascots = themeMascots.stream()
-                    .distinct()
-                    .sorted(Comparator.comparing(m -> m.getClass().getSimpleName()))
-                    .toList();
-
-            if (!distinctThemeMascots.isEmpty()) {
-                sb.append("## ").append(theme.getName()).append(" Theme\n\n");
-                for (AbstractMascot mascot : distinctThemeMascots) {
-                    appendMascotToDocs(sb, mascot);
-                    documentedMascots.add(mascot);
-                }
+            List<AbstractMascot> themeMascots = getMascotsForTheme(theme);
+            if (!themeMascots.isEmpty()) {
+                mascotsByTheme.put(theme.getName(), themeMascots);
+                documentedMascots.addAll(themeMascots);
             }
         }
 
-        // Catch-all for mascots not assigned to any theme
-        List<AbstractMascot> allMascots = MascotRegistry.getMascots().values().stream()
+        List<AbstractMascot> otherMascots = MascotRegistry.getMascots().values().stream()
                 .filter(m -> !documentedMascots.contains(m))
                 .sorted(Comparator.comparing(m -> m.getClass().getSimpleName()))
                 .toList();
 
-        if (!allMascots.isEmpty()) {
+        // Generate Table of Contents
+        sb.append("## Table of Contents\n\n");
+        for (String themeName : mascotsByTheme.keySet()) {
+            String anchor = themeName.toLowerCase().replace(" ", "-") + "-theme";
+            sb.append("- [").append(themeName).append(" Theme](#").append(anchor).append(")\n");
+            for (AbstractMascot mascot : mascotsByTheme.get(themeName)) {
+                String mascotName = mascot.getClass().getSimpleName();
+                sb.append("  - [").append(mascotName).append("](#").append(mascotName.toLowerCase()).append(")\n");
+            }
+        }
+        if (!otherMascots.isEmpty()) {
+            sb.append("- [Other Mascots](#other-mascots)\n");
+            for (AbstractMascot mascot : otherMascots) {
+                String mascotName = mascot.getClass().getSimpleName();
+                sb.append("  - [").append(mascotName).append("](#").append(mascotName.toLowerCase()).append(")\n");
+            }
+        }
+        sb.append("\n---\n\n");
+
+        for (Map.Entry<String, List<AbstractMascot>> entry : mascotsByTheme.entrySet()) {
+            sb.append("## ").append(entry.getKey()).append(" Theme\n\n");
+            for (AbstractMascot mascot : entry.getValue()) {
+                appendMascotToDocs(sb, mascot);
+            }
+        }
+
+        if (!otherMascots.isEmpty()) {
             sb.append("## Other Mascots\n\n");
-            for (AbstractMascot mascot : allMascots) {
+            for (AbstractMascot mascot : otherMascots) {
                 appendMascotToDocs(sb, mascot);
             }
         }
 
         Files.writeString(Paths.get("MASCOTS.md"), sb.toString());
+    }
+
+    private static List<AbstractMascot> getMascotsForTheme(Theme theme) {
+        List<AbstractMascot> themeMascots = new ArrayList<>();
+        if (theme instanceof AbstractTheme abstractTheme) {
+            themeMascots.addAll(abstractTheme.getMascots(null));
+        } else {
+            AbstractMascot normal = theme.getMascot(false);
+            if (normal != null) themeMascots.add(normal);
+            AbstractMascot glitch = theme.getMascot(true);
+            if (glitch != null) themeMascots.add(glitch);
+        }
+
+        // Also check package for mascots that might be associated but not registered in the theme
+        String themePackage = theme.getClass().getPackageName();
+        String mascotPackage = themePackage + ".mascot";
+        MascotRegistry.getMascots().values().stream()
+                .filter(m -> m.getClass().getPackageName().equals(mascotPackage))
+                .forEach(themeMascots::add);
+
+        return themeMascots.stream()
+                .distinct()
+                .sorted(Comparator.comparing(m -> m.getClass().getSimpleName()))
+                .toList();
     }
 
     private static void appendMascotToDocs(StringBuilder sb, AbstractMascot mascot) {
