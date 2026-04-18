@@ -2,6 +2,7 @@ package io.poly.tomlib.logo.theme.may4th;
 
 import io.poly.tomlib.logo.AbstractTheme;
 import io.poly.tomlib.logo.MascotRegistry;
+import io.poly.tomlib.logo.font.StarWarsAsciiFont;
 import io.poly.tomlib.logo.theme.may4th.mascot.*;
 
 import java.util.Random;
@@ -16,7 +17,8 @@ public class May4thTheme extends AbstractTheme {
             "May 4th",
             arrayOf(XWingMascot.class, R2D2Mascot.class, VaderMascot.class, StormtrooperMascot.class,
                 DeathStarMascot.class, TieFighterMascot.class, YodaMascot.class, FalconMascot.class),
-            arrayOf(JarJarMascot.class)
+            arrayOf(JarJarMascot.class),
+            new StarWarsAsciiFont()
         );
     }
 

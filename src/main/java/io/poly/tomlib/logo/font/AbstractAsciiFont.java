@@ -142,4 +142,26 @@ public abstract class AbstractAsciiFont implements AsciiFont {
             System.out.println(line);
         }
     }
+
+    /// Registers a character by padding its lines to the same length and font height.
+    ///
+    /// This method ensures that characters can be defined compactly in the source code
+    /// while still meeting the rectangular requirement of {@link AsciiFontCharacter}.
+    ///
+    /// @param c the character to register.
+    /// @param lines the ASCII art lines for the character.
+    protected void registerCompactCharacter(char c, String... lines) {
+        int maxWidth = 0;
+        for (String line : lines) {
+            maxWidth = Math.max(maxWidth, line.length());
+        }
+
+        String[] paddedLines = new String[fontHeight];
+        for (int i = 0; i < fontHeight; i++) {
+            String line = (i < lines.length) ? lines[i] : "";
+            paddedLines[i] = String.format("%-" + maxWidth + "s", line);
+        }
+
+        registerCharacter(c, paddedLines);
+    }
 }
