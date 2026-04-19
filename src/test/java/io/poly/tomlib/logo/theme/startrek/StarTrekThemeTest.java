@@ -1,6 +1,6 @@
 package io.poly.tomlib.logo.theme.startrek;
 
-import io.poly.tomlib.logo.LogoPrinter;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,14 +29,7 @@ public class StarTrekThemeTest {
 
     @Test
     void printStarTrekTheme() {
-        TestLogoPrinter printer = new TestLogoPrinter();
-        printer.print(new StarTrekTheme(), false);
-    }
-
-    @Test
-    void printStarTrekThemeGlitch() {
-        TestLogoPrinter printer = new TestLogoPrinter();
-        printer.print(new StarTrekTheme(), true);
+        ThemeTestUtils.printTheme(new StarTrekTheme(), "STAR TREK");
     }
 
     @Test
@@ -60,9 +53,4 @@ public class StarTrekThemeTest {
         assertEquals("[!] SUBSPACE INTERFERENCE DETECTED", theme.getGlitchMessage());
     }
 
-    private static class TestLogoPrinter extends LogoPrinter {
-        public void print(io.poly.tomlib.logo.Theme theme, boolean glitchMode) {
-            printLogoWithTheme(glitchMode, theme);
-        }
-    }
 }

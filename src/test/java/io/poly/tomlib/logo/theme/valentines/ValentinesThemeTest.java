@@ -1,10 +1,16 @@
 package io.poly.tomlib.logo.theme.valentines;
 
-import io.poly.tomlib.logo.LogoPrinter;
+import io.poly.tomlib.logo.AbstractMascot;
 import io.poly.tomlib.logo.ThemeRegistry;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
+import io.poly.tomlib.logo.theme.halloween.mascot.SkeletorMascot;
+import io.poly.tomlib.logo.theme.valentines.mascot.ArrowMascot;
+import io.poly.tomlib.logo.theme.valentines.mascot.HeartMascot;
+import io.poly.tomlib.logo.theme.valentines.mascot.LoveLetterMascot;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,30 +33,29 @@ class ValentinesThemeTest {
     }
 
     @Test
-    void printValentinesTheme() {
+    void hasCorrectMascots() {
         ValentinesTheme theme = new ValentinesTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("LOVE");
 
-        System.out.println("--- Normal Valentines Theme ---");
-        printer.printWithTheme(false, theme);
+        List<AbstractMascot> normalMascots = theme.getMascots(false);
+        assertEquals(3, normalMascots.size());
+        assertTrue(normalMascots.stream().anyMatch(m -> m instanceof LoveLetterMascot));
+        assertTrue(normalMascots.stream().anyMatch(m -> m instanceof ArrowMascot));
+        assertTrue(normalMascots.stream().anyMatch(m -> m instanceof HeartMascot));
+
+        List<AbstractMascot> glitchMascots = theme.getMascots(true);
+        assertEquals(1, glitchMascots.size());
+        assertTrue(glitchMascots.stream().anyMatch(m -> m instanceof SkeletorMascot));
     }
 
     @Test
-    void printValentinesThemeGlitch() {
+    void printValentinesTheme() {
         ValentinesTheme theme = new ValentinesTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("LOVE");
-
-        System.out.println("--- Glitch Valentines Theme ---");
-        printer.printWithTheme(true, theme);
+        ThemeTestUtils.printTheme(theme, "LOVE");
     }
 
-    private static class TestLogoPrinter extends LogoPrinter {
-        TestLogoPrinter(String text) {
-            super(text);
-        }
-
-        void printWithTheme(boolean glitchMode, io.poly.tomlib.logo.Theme theme) {
-            super.printLogoWithTheme(glitchMode, theme);
-        }
+    @Test
+    void printValentinesThemeAllMascots() {
+        ValentinesTheme theme = new ValentinesTheme();
+        ThemeTestUtils.printThemeAllMascots(theme, "VALENTINES");
     }
 }

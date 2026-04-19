@@ -6,6 +6,7 @@ import io.poly.tomlib.logo.font.AsciiFont;
 
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -23,10 +24,23 @@ public class DocumentationGenerator {
 
     @Test
     void generateAllDocs() throws IOException {
-        generateFontsDocs();
-        generateThemesDocs();
-        generateMascotsDocs();
-        System.out.println("Documentation generated: FONTS.md, THEMES.md, MASCOTS.md");
+        String originalInference = System.getProperty("tomlib.inference.enabled");
+        try {
+            System.setProperty("tomlib.inference.enabled", "false");
+            ThemeRegistry.clearCache();
+            MascotRegistry.clearCache();
+            System.out.println("[DEBUG_LOG] Themes found: " + ThemeRegistry.getThemes().values().stream().map(Theme::getName).collect(Collectors.joining(", ")));
+            generateFontsDocs();
+            generateThemesDocs();
+            generateMascotsDocs();
+            System.out.println("Documentation generated: FONTS.md, THEMES.md, MASCOTS.md");
+        } finally {
+            if (originalInference != null) {
+                System.setProperty("tomlib.inference.enabled", originalInference);
+            } else {
+                System.clearProperty("tomlib.inference.enabled");
+            }
+        }
     }
 
     private static void generateFontsDocs() throws IOException {
@@ -63,7 +77,7 @@ public class DocumentationGenerator {
             appendAllFontCharacters(sb, font);
             sb.append("</pre>\n\n");
         }
-        Files.writeString(Paths.get("FONTS.md"), sb.toString());
+        Files.writeString(Paths.get("FONTS.md"), sb.toString(), StandardCharsets.UTF_8);
     }
 
     private static void appendFontSample(StringBuilder sb, AsciiFont font, String text) {
@@ -163,7 +177,7 @@ public class DocumentationGenerator {
                 sb.append("</pre>\n\n");
             }
         }
-        Files.writeString(Paths.get("THEMES.md"), sb.toString());
+        Files.writeString(Paths.get("THEMES.md"), sb.toString(), StandardCharsets.UTF_8);
     }
 
     private static void appendThemeExample(StringBuilder sb, Theme theme, boolean glitchMode) {
@@ -331,7 +345,7 @@ public class DocumentationGenerator {
             }
         }
 
-        Files.writeString(Paths.get("MASCOTS.md"), sb.toString());
+        Files.writeString(Paths.get("MASCOTS.md"), sb.toString(), StandardCharsets.UTF_8);
     }
 
     private static List<AbstractMascot> getMascotsForTheme(Theme theme) {

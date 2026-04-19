@@ -12,7 +12,7 @@ public class SkeletorMascot extends AbstractMascot {
             "      .---.      ",
             "    / { v } \\    ",
             "   | { > < } |   ",
-            "   /  {vvv}  \\    ",
+            "   /  {vvv}  \\   ",
             "  (___________)  "
         };
     }

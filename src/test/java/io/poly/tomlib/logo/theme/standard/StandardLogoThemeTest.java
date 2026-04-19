@@ -1,7 +1,7 @@
 package io.poly.tomlib.logo.theme.standard;
 
-import io.poly.tomlib.logo.LogoPrinter;
 import io.poly.tomlib.logo.ThemeRegistry;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -28,28 +28,6 @@ class StandardLogoThemeTest {
     @Test
     void printStandardTheme() {
         StandardLogoTheme theme = new StandardLogoTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("TOMLIB");
-
-        System.out.println("--- Normal Standard Theme ---");
-        printer.printWithTheme(false, theme);
-    }
-
-    @Test
-    void printStandardThemeGlitch() {
-        StandardLogoTheme theme = new StandardLogoTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("TOMLIB");
-
-        System.out.println("--- Glitch Standard Theme ---");
-        printer.printWithTheme(true, theme);
-    }
-
-    private static class TestLogoPrinter extends LogoPrinter {
-        TestLogoPrinter(String text) {
-            super(text);
-        }
-
-        void printWithTheme(boolean glitchMode, io.poly.tomlib.logo.Theme theme) {
-            super.printLogoWithTheme(glitchMode, theme);
-        }
+        ThemeTestUtils.printTheme(theme, "TOMLIB");
     }
 }

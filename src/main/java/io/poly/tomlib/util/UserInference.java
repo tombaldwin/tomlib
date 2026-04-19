@@ -18,6 +18,54 @@ public final class UserInference {
     }
 
     ///
+    /// Attempts to infer the user's first name from the local environment.
+    ///
+    /// @return the inferred first name, or null if not found
+    ///
+    public static String getInferredFirstName() {
+        String fullName = getInferredName();
+        if (fullName == null || fullName.trim().isEmpty()) {
+            return null;
+        }
+
+        // Take the first part (split by space, dot, underscore, or hyphen)
+        String firstPart = fullName.split("[ ._-]")[0];
+        if (firstPart.isEmpty()) {
+            return null;
+        }
+
+        // Capitalise it properly
+        return firstPart.substring(0, 1).toUpperCase() + firstPart.substring(1).toLowerCase();
+    }
+
+    ///
+    /// Attempts to infer the user's last name from the local environment.
+    ///
+    /// @return the inferred last name, or null if not found
+    ///
+    public static String getInferredLastName() {
+        String fullName = getInferredName();
+        if (fullName == null || fullName.trim().isEmpty()) {
+            return null;
+        }
+
+        // Split by space, dot, underscore, or hyphen
+        String[] parts = fullName.trim().split("[ ._-]+");
+        if (parts.length < 2) {
+            return null;
+        }
+
+        // Take the last part
+        String lastPart = parts[parts.length - 1];
+        if (lastPart.isEmpty()) {
+            return null;
+        }
+
+        // Capitalise it properly
+        return lastPart.substring(0, 1).toUpperCase() + lastPart.substring(1).toLowerCase();
+    }
+
+    ///
     /// Attempts to infer the user's name from the local environment.
     ///
     /// Strategies:
@@ -32,6 +80,13 @@ public final class UserInference {
         if (!TomlibConfig.isInferenceEnabled()) {
             return null;
         }
+
+        // 0. System property override (for testing or manual override)
+        String sysOverride = System.getProperty("tomlib.user.name");
+        if (sysOverride != null && !sysOverride.trim().isEmpty()) {
+            return sysOverride.trim();
+        }
+
         // 1. Environment Variables
         String[] envVars = {"USER_NAME", "FULL_NAME", "NAME"};
         for (String var : envVars) {

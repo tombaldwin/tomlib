@@ -1,7 +1,7 @@
 package io.poly.tomlib.logo.theme.easter;
 
-import io.poly.tomlib.logo.LogoPrinter;
 import io.poly.tomlib.logo.ThemeRegistry;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -31,28 +31,6 @@ class EasterThemeTest {
     @Test
     void printEasterTheme() {
         EasterTheme theme = new EasterTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("EASTER");
-
-        System.out.println("--- Normal Easter Theme ---");
-        printer.printWithTheme(false, theme);
-    }
-
-    @Test
-    void printEasterThemeGlitch() {
-        EasterTheme theme = new EasterTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("EASTER");
-
-        System.out.println("--- Glitch Easter Theme ---");
-        printer.printWithTheme(true, theme);
-    }
-
-    private static class TestLogoPrinter extends LogoPrinter {
-        TestLogoPrinter(String text) {
-            super(text);
-        }
-
-        void printWithTheme(boolean glitchMode, io.poly.tomlib.logo.Theme theme) {
-            super.printLogoWithTheme(glitchMode, theme);
-        }
+        ThemeTestUtils.printTheme(theme, "EASTER");
     }
 }

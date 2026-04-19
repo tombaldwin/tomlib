@@ -1,7 +1,7 @@
 package io.poly.tomlib.logo.theme.fourthofjuly;
 
-import io.poly.tomlib.logo.LogoPrinter;
 import io.poly.tomlib.logo.ThemeRegistry;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -29,28 +29,6 @@ class FourthOfJulyThemeTest {
     @Test
     void printFourthOfJulyTheme() {
         FourthOfJulyTheme theme = new FourthOfJulyTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("USA");
-
-        System.out.println("--- Normal 4th of July Theme ---");
-        printer.printWithTheme(false, theme);
-    }
-
-    @Test
-    void printFourthOfJulyThemeGlitch() {
-        FourthOfJulyTheme theme = new FourthOfJulyTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("USA");
-
-        System.out.println("--- Glitch 4th of July Theme ---");
-        printer.printWithTheme(true, theme);
-    }
-
-    private static class TestLogoPrinter extends LogoPrinter {
-        TestLogoPrinter(String text) {
-            super(text);
-        }
-
-        void printWithTheme(boolean glitchMode, io.poly.tomlib.logo.Theme theme) {
-            super.printLogoWithTheme(glitchMode, theme);
-        }
+        ThemeTestUtils.printTheme(theme, "USA");
     }
 }

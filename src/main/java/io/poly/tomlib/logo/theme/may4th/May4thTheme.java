@@ -12,6 +12,9 @@ import static io.poly.tomlib.logo.theme.easter.EasterTheme.arrayOf;
 /// Theme for May the 4th (Star Wars Day).
 public class May4thTheme extends AbstractTheme {
 
+    private final ThreadLocal<AbstractMascot> currentMascot = new ThreadLocal<>();
+    private final ThreadLocal<Boolean> currentGlitchMode = new ThreadLocal<>();
+
     public May4thTheme() {
         super(
             "May 4th",
@@ -73,6 +76,15 @@ public class May4thTheme extends AbstractTheme {
     @Override
     public int getPriority() {
         return 30;
+    }
+
+    @Override
+    public io.poly.tomlib.logo.AbstractMascot getMascot(boolean glitchMode) {
+        if (currentMascot.get() == null || currentGlitchMode.get() == null || currentGlitchMode.get() != glitchMode) {
+            currentMascot.set(super.getMascot(glitchMode));
+            currentGlitchMode.set(glitchMode);
+        }
+        return currentMascot.get();
     }
 
     @Override

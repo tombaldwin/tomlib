@@ -1,7 +1,7 @@
 package io.poly.tomlib.logo.theme.may4th;
 
-import io.poly.tomlib.logo.LogoPrinter;
 import io.poly.tomlib.logo.ThemeRegistry;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -30,52 +30,13 @@ class May4thThemeTest {
     @Test
     void printMay4thTheme() {
         May4thTheme theme = new May4thTheme();
-        LogoPrinter printer = new LogoPrinter("STAR WARS");
-
-        System.out.println("--- Normal May 4th Theme ---");
-        // We use a protected method or just use LogoPrinter to print with this theme
-        // Since printLogoWithTheme is protected, we can't call it directly from here unless we are in the same package
-        // or we use a subclass of LogoPrinter.
-
-        TestLogoPrinter testPrinter = new TestLogoPrinter("STAR WARS");
-        testPrinter.printWithTheme(false, theme);
+        ThemeTestUtils.printTheme(theme, "STAR WARS");
     }
 
     @Test
-    void printMay4thThemeGlitch() {
+    void printMay4thThemeAllMascots() {
         May4thTheme theme = new May4thTheme();
-        TestLogoPrinter testPrinter = new TestLogoPrinter("STAR WARS");
-
-        System.out.println("--- Glitch May 4th Theme ---");
-        testPrinter.printWithTheme(true, theme);
+        ThemeTestUtils.printThemeAllMascots(theme, "STAR WARS");
     }
 
-    /// Prints all mascots associated with the May 4th theme, including glitch variants.
-    @Test
-    void printAllMascots() {
-        May4thTheme theme = new May4thTheme();
-        System.out.println("--- All May 4th Mascots (Normal) ---");
-        theme.getMascots(false).forEach(mascot -> {
-            System.out.println("Mascot: " + mascot.getClass().getSimpleName());
-            mascot.print();
-            System.out.println();
-        });
-
-        System.out.println("--- All May 4th Mascots (Glitch) ---");
-        theme.getMascots(true).forEach(mascot -> {
-            System.out.println("Mascot: " + mascot.getClass().getSimpleName());
-            mascot.print();
-            System.out.println();
-        });
-    }
-
-    private static class TestLogoPrinter extends LogoPrinter {
-        TestLogoPrinter(String text) {
-            super(text);
-        }
-
-        void printWithTheme(boolean glitchMode, io.poly.tomlib.logo.Theme theme) {
-            super.printLogoWithTheme(glitchMode, theme);
-        }
-    }
 }

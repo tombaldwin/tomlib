@@ -1,7 +1,7 @@
 package io.poly.tomlib.logo.theme.festive;
 
-import io.poly.tomlib.logo.LogoPrinter;
 import io.poly.tomlib.logo.ThemeRegistry;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -31,28 +31,6 @@ class FestiveThemeTest {
     @Test
     void printFestiveTheme() {
         FestiveTheme theme = new FestiveTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("FESTIVE");
-
-        System.out.println("--- Normal Festive Theme ---");
-        printer.printWithTheme(false, theme);
-    }
-
-    @Test
-    void printFestiveThemeGlitch() {
-        FestiveTheme theme = new FestiveTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("FESTIVE");
-
-        System.out.println("--- Glitch Festive Theme ---");
-        printer.printWithTheme(true, theme);
-    }
-
-    private static class TestLogoPrinter extends LogoPrinter {
-        TestLogoPrinter(String text) {
-            super(text);
-        }
-
-        void printWithTheme(boolean glitchMode, io.poly.tomlib.logo.Theme theme) {
-            super.printLogoWithTheme(glitchMode, theme);
-        }
+        ThemeTestUtils.printTheme(theme, "FESTIVE");
     }
 }

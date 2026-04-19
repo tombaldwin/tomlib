@@ -1,7 +1,7 @@
 package io.poly.tomlib.logo.theme.birthday;
 
-import io.poly.tomlib.logo.LogoPrinter;
 import io.poly.tomlib.logo.ThemeRegistry;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -44,33 +44,6 @@ class BirthdayThemeTest {
             @Override
             protected MonthDay getInferredBirthday() { return MonthDay.of(4, 18); }
         };
-        TestLogoPrinter printer = new TestLogoPrinter("HAPPY BIRTHDAY");
-
-        System.out.println("--- Normal Birthday Theme ---");
-        printer.printWithTheme(false, theme);
-    }
-
-    @Test
-    void printBirthdayThemeGlitch() {
-        BirthdayTheme theme = new BirthdayTheme() {
-            @Override
-            protected String getInferredName() { return "Tom"; }
-            @Override
-            protected MonthDay getInferredBirthday() { return MonthDay.of(4, 18); }
-        };
-        TestLogoPrinter printer = new TestLogoPrinter("HAPPY BIRTHDAY");
-
-        System.out.println("--- Glitch Birthday Theme ---");
-        printer.printWithTheme(true, theme);
-    }
-
-    private static class TestLogoPrinter extends LogoPrinter {
-        TestLogoPrinter(String text) {
-            super(text);
-        }
-
-        void printWithTheme(boolean glitchMode, io.poly.tomlib.logo.Theme theme) {
-            super.printLogoWithTheme(glitchMode, theme);
-        }
+        ThemeTestUtils.printTheme(theme, "HAPPY BIRTHDAY");
     }
 }

@@ -1,7 +1,7 @@
 package io.poly.tomlib.logo.theme.halloween;
 
-import io.poly.tomlib.logo.LogoPrinter;
 import io.poly.tomlib.logo.ThemeRegistry;
+import io.poly.tomlib.logo.theme.ThemeTestUtils;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -29,33 +29,12 @@ class HalloweenLogoThemeTest {
     @Test
     void printHalloweenTheme() {
         HalloweenLogoTheme theme = new HalloweenLogoTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("BOO!");
-
-        System.out.println("--- Normal Halloween Theme (Variant 0) ---");
+        System.out.println("--- Halloween Theme (Variant 0) ---");
         theme.setVariant(0);
-        printer.printWithTheme(false, theme);
+        ThemeTestUtils.printTheme(theme, "BOO!");
 
-        System.out.println("--- Normal Halloween Theme (Variant 1) ---");
+        System.out.println("\n--- Halloween Theme (Variant 1) ---");
         theme.setVariant(1);
-        printer.printWithTheme(false, theme);
-    }
-
-    @Test
-    void printHalloweenThemeGlitch() {
-        HalloweenLogoTheme theme = new HalloweenLogoTheme();
-        TestLogoPrinter printer = new TestLogoPrinter("BOO!");
-
-        System.out.println("--- Glitch Halloween Theme ---");
-        printer.printWithTheme(true, theme);
-    }
-
-    private static class TestLogoPrinter extends LogoPrinter {
-        TestLogoPrinter(String text) {
-            super(text);
-        }
-
-        void printWithTheme(boolean glitchMode, io.poly.tomlib.logo.Theme theme) {
-            super.printLogoWithTheme(glitchMode, theme);
-        }
+        ThemeTestUtils.printTheme(theme, "BOO!");
     }
 }
