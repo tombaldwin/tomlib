@@ -22,7 +22,7 @@ public class StandardLogoTheme extends AbstractTheme {
 
     @Override
     public float getMascotProbability() {
-        return 0.01f;
+        return 0.2f;
     }
 
     @Override
@@ -51,16 +51,6 @@ public class StandardLogoTheme extends AbstractTheme {
         } else {
             super.addNoiseColour(colouredLine, row, col, c, glitchMode);
         }
-    }
-
-    @Override
-    public boolean glitchDistortion() {
-        return true;
-    }
-
-    @Override
-    public boolean glitchCorruption() {
-        return true;
     }
 
     @Override

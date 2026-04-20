@@ -16,6 +16,7 @@ class StandardLogoThemeTest {
         StandardLogoTheme theme = ThemeRegistry.getTheme(StandardLogoTheme.class).orElseThrow();
         assertEquals("Standard", theme.getName());
         assertEquals(0, theme.getPriority());
+        assertEquals(0.2f, theme.getMascotProbability(), 0.001f);
     }
 
     @Test

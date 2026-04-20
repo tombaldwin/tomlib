@@ -484,8 +484,7 @@ public class LogoPrinterTest {
     public void logoTextIsDefaultTomlib() {
         System.out.println("--- TESTING LOGO TEXT IS DEFAULT TOMLIB ---");
         LogoPrinter printer = new LogoPrinter() {
-            @Override
-            protected String getInferredName() {
+            private String getInferredName() {
                 return "Should Be Ignored";
             }
         };
@@ -505,8 +504,7 @@ public class LogoPrinterTest {
         };
 
         LogoPrinter birthdayNamePrinter = new LogoPrinter() {
-            @Override
-            protected String getInferredName() {
+            private String getInferredName() {
                 return "Tom Baldwin";
             }
             @Override
@@ -523,8 +521,7 @@ public class LogoPrinterTest {
     public void birthdayCakeWithoutKnownBirthday() {
         System.out.println("--- TESTING BIRTHDAY CAKE WITHOUT KNOWN BIRTHDAY ---");
         LogoPrinter manualBirthdayPrinter = new LogoPrinter() {
-            @Override
-            protected String getInferredName() {
+            private String getInferredName() {
                 return "Tom Baldwin";
             }
         };
@@ -533,8 +530,7 @@ public class LogoPrinterTest {
         // It should use "tomlib" because birthday is not known (even if name is known)
         System.out.println("Manual birthday trigger (birthday not inferred):");
         new LogoPrinter() {
-            @Override
-            protected String getInferredName() {
+            private String getInferredName() {
                 return "Tom Baldwin";
             }
             @Override
@@ -554,7 +550,7 @@ public class LogoPrinterTest {
 
     @Test
     public void printMascot() {
-        System.out.println("--- SEARCHING FOR MASCOT (1/10 chance) ---");
+        System.out.println("--- SEARCHING FOR MASCOT (20% chance) ---");
         for (int i = 0; i < 30; i++) {
             System.out.println("Attempt " + (i + 1) + ":");
             logoPrinter.printLogo(false);

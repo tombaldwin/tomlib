@@ -19,7 +19,7 @@ public class LogoPrinter {
     private static LogoPrinter instance;
 
     private final String logoText;
-    private double glitchProbability = 0.2;
+    private final double glitchProbability;
     private final List<Theme> themes = new ArrayList<>();
 
 
@@ -102,35 +102,16 @@ public class LogoPrinter {
         // Option 1: Bold Block (Lowercase)
         String[] logo = theme.getLogo(getLogoText(), glitchMode);
 
-
-
-//        if (halloweenMode) {
-//            // Check if logo matches classic ghost to determine variant
-//            if (logo.length >= 5) {
-//                if (logo[0].contains(".-''-.")) halloweenVariant = 1;
-//                else if (logo[0].contains(",.")) halloweenVariant = 2;
-//                else halloweenVariant = 0;
-//            }
-//        }
-
-
-        // Selection of seasonal mascot
-        int mascotType = 0; // Christmas: 0:Snowman, 1:Reindeer, 2:Tree, 3:Elf, 4:Gift, 5:HappyGrinch, -1:Grinch.
-        // New Year: 10:Bottle, 11:Glass, 12:Fireworks, 13:Hat
-        // Valentine: 20:Heart, 21:Letter, 22:Arrow
-        // Easter: 40:Bunny, 41:Chick, 42:Egg, 43:Basket, -40:BrokenEgg
-        // May 4th: 50:Falcon, 51:X-Wing, 52:R2D2, 53:Vader, 54:Stormtrooper, 55:DeathStar, 56:TIE, -50:JarJar
-        // 4th of July: 60:Flag, 61:Eagle, 62:Fireworks
-        // Cat: 30:Mascot
-        boolean catMode = false;
-
-        AbstractMascot mascot = theme.getMascot(glitchMode);
+        RandomGenerator glitchRand = RandomGenerator.getDefault();
+        AbstractMascot mascot = null;
+        if (glitchRand.nextDouble() < theme.getMascotProbability()) {
+            mascot = theme.getMascot(glitchMode);
+        }
         String[] mascotArt = Optional.ofNullable(mascot).map(AbstractMascot::getArt).orElse(new String[0]);
 
 
         double shear = 0;
         double slant = 0;
-        RandomGenerator glitchRand = RandomGenerator.getDefault();
         if (glitchMode && theme.glitchDistortion()) {
             shear = glitchRand.nextDouble() * 4 - 2; // Random initial offset between -2 and 2
             // Force a non-zero slant in most cases
@@ -255,7 +236,7 @@ public class LogoPrinter {
                         c = (char) (33 + glitchRand.nextInt(94));
                     }
 
-                    int[] rgb = theme.getStarColour(c, row, col, glitchMode);
+                    int[] rgb;
                     if (col >= mascotColumn && mascot != null) {
                         rgb = mascot.getColour(c, row, col);
                     }
@@ -305,10 +286,6 @@ public class LogoPrinter {
             (int) ((g + m) * 255),
             (int) ((b + m) * 255)
         };
-    }
-
-    protected String getInferredName() {
-        return UserInference.getInferredName();
     }
 
     ///
